@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import database from './config/database';
 import usersRouter from './routes/users';
 import teamsRouter from './routes/teams';
@@ -14,7 +15,23 @@ const apiUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : `http://localhost:${port}`;
 
+const frontendLocal = `http://localhost:5173`;
+const allowedOrigins = [frontendLocal, `http://localhost:${port}`];
+if (codespaceName) {
+  allowedOrigins.push(`https://${codespaceName}-8000.app.github.dev`);
+}
+
 app.use(express.json());
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error(`Origin not allowed by CORS: ${origin}`));
+    },
+    optionsSuccessStatus: 200,
+  })
+);
 app.use('/api/users', usersRouter);
 app.use('/api/teams', teamsRouter);
 app.use('/api/activities', activitiesRouter);
