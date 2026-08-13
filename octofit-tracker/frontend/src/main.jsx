@@ -1,3 +1,12 @@
+/**
+ * React 19 Application Entry Point
+ *
+ * Sets up the root React application with:
+ * - React 19 with Strict Mode for development debugging
+ * - react-router-dom BrowserRouter for client-side navigation
+ * - Bootstrap 5 CSS framework for responsive design
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

@@ -1,3 +1,24 @@
+/**
+ * Leaderboard Component
+ *
+ * Displays a competitive leaderboard ranking users by points or scores.
+ *
+ * React 19 Patterns:
+ * - useState for managing leaderboard items and error state
+ * - useEffect with cleanup for data fetching
+ * - Conditional rendering for empty states and error messages
+ *
+ * API Integration:
+ * - Fetches from: import.meta.env.VITE_CODESPACE_NAME-8000.app.github.dev/api/leaderboard/
+ * - Supports paginated and array-based responses
+ *
+ * Field Mapping:
+ * - rank: item.rank
+ * - name: item.name
+ * - points: item.score
+ * - team: item.teamName (optional)
+ */
+
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeCollection } from '../utils/api';
 
@@ -60,9 +81,9 @@ function Leaderboard() {
                   items.map((item, index) => (
                     <tr key={item._id || item.id || `${item.name}-${index}`}>
                       <td>{item.rank || index + 1}</td>
-                      <td>{item.name || item.user || '—'}</td>
-                      <td>{item.points || item.score || 0}</td>
-                      <td>{item.team || item.teamName || '—'}</td>
+                      <td>{item.name || '—'}</td>
+                      <td>{item.score || 0}</td>
+                      <td>{item.teamName || '—'}</td>
                     </tr>
                   ))
                 )}

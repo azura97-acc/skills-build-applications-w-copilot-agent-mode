@@ -1,3 +1,26 @@
+/**
+ * Activities Component
+ *
+ * Displays a list of activity logs fetched from the backend API.
+ *
+ * React 19 Patterns:
+ * - useState for component state management
+ * - useEffect with cleanup for data fetching (prevents memory leaks)
+ * - Proper error handling and user feedback
+ *
+ * API Integration:
+ * - Fetches from: import.meta.env.VITE_CODESPACE_NAME-8000.app.github.dev/api/activities/
+ * - Supports paginated and array-based responses via normalizeCollection()
+ *
+ * Field Mapping:
+ * - date: item.activityDate
+ * - type: item.type
+ * - duration: item.durationMinutes
+ * - caloriesBurned: item.caloriesBurned
+ * - distance: item.distance (optional)
+ * - notes: item.notes (optional)
+ */
+
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeCollection } from '../utils/api';
 
@@ -45,7 +68,8 @@ function Activities() {
                 <tr>
                   <th>Date</th>
                   <th>Type</th>
-                  <th>Duration</th>
+                  <th>Duration (min)</th>
+                  <th>Calories</th>
                   <th>Distance</th>
                   <th>Notes</th>
                 </tr>
@@ -53,18 +77,19 @@ function Activities() {
               <tbody>
                 {items.length === 0 ? (
                   <tr>
-                    <td colSpan="5" className="text-muted text-center py-4">
+                    <td colSpan="6" className="text-muted text-center py-4">
                       No activities available.
                     </td>
                   </tr>
                 ) : (
                   items.map((item, index) => (
                     <tr key={item._id || item.id || `${item.type}-${index}`}>
-                      <td>{item.date || item.createdAt || '—'}</td>
-                      <td>{item.type || item.activityType || '—'}</td>
-                      <td>{item.duration || item.minutes || '—'}</td>
-                      <td>{item.distance || item.miles || '—'}</td>
-                      <td>{item.notes || item.description || '—'}</td>
+                      <td>{new Date(item.activityDate).toLocaleDateString() || '—'}</td>
+                      <td>{item.type || '—'}</td>
+                      <td>{item.durationMinutes || '—'}</td>
+                      <td>{item.caloriesBurned || '—'}</td>
+                      <td>{item.distance || '—'}</td>
+                      <td>{item.notes || '—'}</td>
                     </tr>
                   ))
                 )}

@@ -1,3 +1,18 @@
+/**
+ * OctoFit Tracker - Main Application Component
+ *
+ * React 19 Application with react-router-dom for client-side routing.
+ * Uses Vite environment variables for API configuration (import.meta.env.VITE_CODESPACE_NAME).
+ *
+ * Routes:
+ * - / : Dashboard with welcome and app status
+ * - /activities : Activity tracking log
+ * - /leaderboard : Competitive leaderboard
+ * - /teams : Team management
+ * - /users : User directory
+ * - /workouts : Workout plans
+ */
+
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Activities from './components/Activities';
 import Leaderboard from './components/Leaderboard';
@@ -14,6 +29,10 @@ const navItems = [
   { to: '/workouts', label: 'Workouts' },
 ];
 
+/**
+ * Home Page Component
+ * Displays welcome message and application status information.
+ */
 function Home() {
   return (
     <div className="row g-4">
@@ -31,12 +50,12 @@ function Home() {
       <div className="col-md-6">
         <div className="card h-100 shadow-sm border-0">
           <div className="card-body">
-            <h2 className="h4 mb-3">App status</h2>
+            <h2 className="h4 mb-3">App Status</h2>
             <ul className="list-unstyled mb-0">
-              <li>Frontend: React 19 + Vite</li>
-              <li>Routing: react-router-dom</li>
-              <li>Backend: Express API</li>
-              <li>Env: import.meta.env.VITE_CODESPACE_NAME</li>
+              <li>✓ Frontend: React 19 + Vite</li>
+              <li>✓ Routing: react-router-dom</li>
+              <li>✓ Backend: Express API</li>
+              <li>✓ Environment: import.meta.env.VITE_CODESPACE_NAME</li>
             </ul>
           </div>
         </div>
@@ -45,6 +64,10 @@ function Home() {
   );
 }
 
+/**
+ * Main App Component
+ * Provides navigation and routing structure for the entire application.
+ */
 function App() {
   return (
     <div className="min-vh-100 bg-light">

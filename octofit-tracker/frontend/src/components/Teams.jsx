@@ -1,3 +1,23 @@
+/**
+ * Teams Component
+ *
+ * Displays team information in a responsive card grid layout.
+ *
+ * React 19 Patterns:
+ * - useState for managing team list and error state
+ * - useEffect with cleanup function for async data fetching
+ * - Flexible key generation for reliable React list rendering
+ *
+ * API Integration:
+ * - Fetches from: import.meta.env.VITE_CODESPACE_NAME-8000.app.github.dev/api/teams/
+ * - Handles both paginated and direct array responses
+ *
+ * Field Mapping:
+ * - name: team.name
+ * - description: team.description
+ * - memberCount: team.members (number of members)
+ */
+
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeCollection } from '../utils/api';
 
@@ -52,7 +72,7 @@ function Teams() {
                       <h2 className="h5 mb-2">{team.name || 'Unnamed team'}</h2>
                       <p className="text-muted mb-2">{team.description || 'No description provided.'}</p>
                       <div className="small text-secondary">
-                        Members: {team.members?.length || team.memberCount || 0}
+                        Members: {team.members || 0}
                       </div>
                     </div>
                   </div>

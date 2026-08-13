@@ -5,6 +5,8 @@ export interface ActivityDocument extends Document {
   type: string;
   durationMinutes: number;
   caloriesBurned: number;
+  distance?: number;
+  notes?: string;
   activityDate: Date;
 }
 
@@ -13,6 +15,8 @@ const ActivitySchema = new Schema<ActivityDocument>({
   type: { type: String, required: true },
   durationMinutes: { type: Number, required: true },
   caloriesBurned: { type: Number, required: true },
+  distance: { type: Number, required: false },
+  notes: { type: String, required: false },
   activityDate: { type: Date, required: true, default: () => new Date() }
 });
 

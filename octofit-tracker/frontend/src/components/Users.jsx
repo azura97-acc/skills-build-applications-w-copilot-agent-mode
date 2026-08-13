@@ -1,3 +1,24 @@
+/**
+ * Users Component
+ *
+ * Displays a directory of all users with their profiles and team assignments.
+ *
+ * React 19 Patterns:
+ * - useState for user list and error handling
+ * - useEffect with cleanup to prevent state updates on unmounted components
+ * - Flexible field mapping to support various API schemas
+ *
+ * API Integration:
+ * - Fetches from: import.meta.env.VITE_CODESPACE_NAME-8000.app.github.dev/api/users/
+ * - Supports both paginated and array-based response formats
+ *
+ * Field Mapping:
+ * - name: user.name
+ * - email: user.email
+ * - role: user.role
+ * - team: user.teamName (optional)
+ */
+
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeCollection } from '../utils/api';
 
@@ -59,10 +80,10 @@ function Users() {
                 ) : (
                   items.map((user, index) => (
                     <tr key={user._id || user.id || `${user.name}-${index}`}>
-                      <td>{user.name || `${user.firstName || ''} ${user.lastName || ''}`.trim() || '—'}</td>
+                      <td>{user.name || '—'}</td>
                       <td>{user.email || '—'}</td>
-                      <td>{user.role || user.position || 'Student'}</td>
-                      <td>{user.team || user.teamName || '—'}</td>
+                      <td>{user.role || '—'}</td>
+                      <td>{user.teamName || '—'}</td>
                     </tr>
                   ))
                 )}
